@@ -78,8 +78,15 @@
     "title": "Acuerdo de No Divulgación",
     "subtitle": "Por favor revise y firme el NDA",
     "scrollToSign": "Por favor desplácese hasta el final para firmar",
-    "signHere": "Por favor firme aquí",
-    "clearSignature": "Limpiar",
+    "signature": {
+      "title": "Firma Digital",
+      "label": "Firma",
+      "placeholder": "Firme aquí con su dedo o stylus",
+      "clear": "Limpiar",
+      "empty": "Por favor proporcione su firma",
+      "signed": "Firma capturada",
+      "required": "La firma digital es requerida"
+    },
     "errors": {
       "signatureRequired": "La firma es requerida"
     }

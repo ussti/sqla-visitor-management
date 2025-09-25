@@ -78,8 +78,15 @@
     "title": "Non-Disclosure Agreement",
     "subtitle": "Please review and sign the NDA",
     "scrollToSign": "Please scroll to the bottom to sign",
-    "signHere": "Please sign here",
-    "clearSignature": "Clear",
+    "signature": {
+      "title": "Digital Signature",
+      "label": "Signature",
+      "placeholder": "Sign here with your finger or stylus",
+      "clear": "Clear",
+      "empty": "Please provide your signature",
+      "signed": "Signature captured",
+      "required": "Digital signature is required"
+    },
     "errors": {
       "signatureRequired": "Signature is required"
     }

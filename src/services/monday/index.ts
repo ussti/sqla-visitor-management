@@ -24,6 +24,8 @@ class MondayServiceAdapter implements MondayService {
 
     if (this.useMock) {
       console.log('🟡 Using Mock Monday.com service for development');
+      // Add sample visitor for testing returning visitor functionality
+      setTimeout(() => mockMondayService.addSampleVisitor(), 100);
     } else {
       console.log('🟢 Using real Monday.com API');
     }

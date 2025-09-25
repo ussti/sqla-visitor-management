@@ -5,6 +5,16 @@ import { I18nProvider } from "./providers/i18n-provider";
 export const metadata: Metadata = {
   title: "SQLA Visitor Management",
   description: "Visitor registration system for Squeak E. Clean Studios",
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    userScalable: false,
+  },
+  other: {
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
+    'orientation': 'landscape',
+  }
 };
 
 export default function RootLayout({

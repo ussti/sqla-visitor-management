@@ -59,6 +59,11 @@ export class MockMondayService {
   async createVisitor(visitorData: Omit<Visitor, 'id' | 'createdAt'>): Promise<{ id: string; name: string }> {
     await new Promise(resolve => setTimeout(resolve, 800));
 
+    // Simulate potential API errors randomly (5% chance)
+    if (Math.random() < 0.05) {
+      throw new Error('Mock API Error: Failed to create visitor record');
+    }
+
     const visitor: Visitor = {
       ...visitorData,
       id: `visitor_${Date.now()}`,
@@ -131,6 +136,25 @@ export class MockMondayService {
       visitors: this.visitors,
       staff: this.staff
     };
+  }
+
+  // Add a sample visitor for testing returning visitor functionality
+  addSampleVisitor() {
+    const sampleVisitor: Visitor = {
+      id: 'sample_visitor_1',
+      name: 'John',
+      surname: 'Doe',
+      email: 'john.doe@example.com',
+      organization: 'Tech Corp',
+      hostId: '1',
+      hostName: 'Sarah Johnson',
+      visitDate: new Date('2024-01-15'),
+      status: 'Registered',
+      createdAt: new Date('2024-01-15')
+    };
+
+    this.visitors.push(sampleVisitor);
+    console.log('🟡 Mock: Added sample visitor for testing');
   }
 
   // Reset mock data for testing

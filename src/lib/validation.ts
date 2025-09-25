@@ -42,13 +42,13 @@ export const photoSchema = z.object({
 });
 
 export const ndaSchema = z.object({
-  signatureBlob: z.instanceof(Blob, {
-    message: 'nda.errors.signatureRequired'
-  }),
-  signatureUrl: z.string().min(1, 'nda.errors.signatureRequired'),
+  signature: z.string().min(1, 'nda.errors.signatureRequired').optional(),
+  signatureBlob: z.instanceof(Blob).optional(),
+  signatureUrl: z.string().optional(),
   ndaAccepted: z.boolean().refine(val => val === true, {
     message: 'NDA acceptance is required'
   }),
+  ndaSignedAt: z.string().optional(),
 });
 
 export const completeRegistrationSchema = personalInfoSchema

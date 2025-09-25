@@ -47,10 +47,23 @@ export class MondayClient {
 
   async query(query: string, variables?: Record<string, unknown>) {
     try {
-      return await monday.api(query, { variables });
+      const result = await monday.api(query, { variables });
+
+      if ((result as any).errors && (result as any).errors.length > 0) {
+        console.error('Monday.com GraphQL errors:', (result as any).errors);
+        throw new Error(`Monday.com API error: ${(result as any).errors[0].message}`);
+      }
+
+      return result;
     } catch (error) {
       console.error('Monday.com query failed:', error);
-      throw error;
+
+      if (error instanceof Error) {
+        // Re-throw with more context
+        throw new Error(`Monday.com operation failed: ${error.message}`);
+      } else {
+        throw new Error('Monday.com operation failed with unknown error');
+      }
     }
   }
 
@@ -83,7 +96,7 @@ export class MondayClient {
     return response.data.create_item;
   }
 
-  async findVisitorByEmail(email: string): Promise<{ id: string; name: string; email: string } | null> {
+  async findVisitorByEmail(email: string): Promise<{ id: string; name: string; email: string; firstName?: string; lastName?: string; companyName?: string; position?: string } | null> {
     const query = `
       query get_board($board_id: ID!) {
         boards(ids: [$board_id]) {
@@ -109,11 +122,20 @@ export class MondayClient {
     });
 
     if (visitor) {
+      const getColumnValue = (title: string) =>
+        visitor.column_values.find((col: { title: string; text: string }) => col.title === title)?.text || '';
+
       const emailColumn = visitor.column_values.find((col: { title: string; text: string }) => col.title === 'Email');
+      const fullName = visitor.name.split(' ');
+
       return {
         id: visitor.id,
         name: visitor.name,
-        email: emailColumn?.text || ''
+        email: emailColumn?.text || '',
+        firstName: fullName[0] || '',
+        lastName: fullName.slice(1).join(' ') || '',
+        companyName: getColumnValue('Company'),
+        position: getColumnValue('Position')
       };
     }
 
