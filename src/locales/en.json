@@ -1,0 +1,101 @@
+{
+  "common": {
+    "next": "Next",
+    "previous": "Previous",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "required": "Required",
+    "optional": "Optional"
+  },
+  "languages": {
+    "english": "English",
+    "spanish": "Español"
+  },
+  "welcome": {
+    "title": "Welcome to SQLA Studio",
+    "subtitle": "Visitor Registration System",
+    "selectLanguage": "Please select your language",
+    "startRegistration": "Start Registration"
+  },
+  "personalInfo": {
+    "title": "Personal Information",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastNamePlaceholder": "Enter your last name",
+    "errors": {
+      "firstNameRequired": "First name is required",
+      "lastNameRequired": "Last name is required",
+      "firstNameMinLength": "First name must be at least 2 characters",
+      "lastNameMinLength": "Last name must be at least 2 characters"
+    }
+  },
+  "organization": {
+    "title": "Organization Information",
+    "companyName": "Company/Organization",
+    "companyNamePlaceholder": "Enter your company or organization name",
+    "position": "Position/Title",
+    "positionPlaceholder": "Enter your position or title",
+    "errors": {
+      "companyNameRequired": "Company name is required"
+    }
+  },
+  "contact": {
+    "title": "Contact Information",
+    "email": "Email Address",
+    "emailPlaceholder": "Enter your email address",
+    "returningVisitor": "Returning visitor? We found your information",
+    "errors": {
+      "emailRequired": "Email address is required",
+      "emailInvalid": "Please enter a valid email address"
+    }
+  },
+  "host": {
+    "title": "Who are you visiting?",
+    "selectHost": "Select your host",
+    "searchPlaceholder": "Search for staff member...",
+    "noResults": "No staff members found",
+    "errors": {
+      "hostRequired": "Please select a host"
+    }
+  },
+  "photo": {
+    "title": "Visitor Photo",
+    "subtitle": "We need to take your photo for security purposes",
+    "consentTitle": "Biometric Data Consent",
+    "consentText": "By proceeding, you consent to the collection of your biometric data (photograph) for security and identification purposes during your visit to SQLA Studio.",
+    "agree": "I Agree",
+    "disagree": "I Disagree",
+    "takePhoto": "Take Photo",
+    "retakePhoto": "Retake Photo",
+    "usePhoto": "Use This Photo"
+  },
+  "nda": {
+    "title": "Non-Disclosure Agreement",
+    "subtitle": "Please review and sign the NDA",
+    "scrollToSign": "Please scroll to the bottom to sign",
+    "signHere": "Please sign here",
+    "clearSignature": "Clear",
+    "errors": {
+      "signatureRequired": "Signature is required"
+    }
+  },
+  "completion": {
+    "title": "Registration Complete!",
+    "subtitle": "Thank you for registering with SQLA Studio",
+    "message": "Your host has been notified of your arrival. You will receive a welcome email shortly with important information about your visit.",
+    "newVisitor": "Register New Visitor"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Network error. Please check your connection.",
+    "camera": "Camera access denied. Please enable camera permissions.",
+    "fileUpload": "Failed to upload file. Please try again.",
+    "emailSend": "Failed to send email notification.",
+    "dataSync": "Failed to sync data. Please try again."
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "common": {
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "required": "Requerido",
+    "optional": "Opcional"
+  },
+  "languages": {
+    "english": "English",
+    "spanish": "Español"
+  },
+  "welcome": {
+    "title": "Bienvenido a SQLA Studio",
+    "subtitle": "Sistema de Registro de Visitantes",
+    "selectLanguage": "Por favor seleccione su idioma",
+    "startRegistration": "Comenzar Registro"
+  },
+  "personalInfo": {
+    "title": "Información Personal",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "firstNamePlaceholder": "Ingrese su nombre",
+    "lastNamePlaceholder": "Ingrese su apellido",
+    "errors": {
+      "firstNameRequired": "El nombre es requerido",
+      "lastNameRequired": "El apellido es requerido",
+      "firstNameMinLength": "El nombre debe tener al menos 2 caracteres",
+      "lastNameMinLength": "El apellido debe tener al menos 2 caracteres"
+    }
+  },
+  "organization": {
+    "title": "Información de la Organización",
+    "companyName": "Empresa/Organización",
+    "companyNamePlaceholder": "Ingrese el nombre de su empresa u organización",
+    "position": "Posición/Título",
+    "positionPlaceholder": "Ingrese su posición o título",
+    "errors": {
+      "companyNameRequired": "El nombre de la empresa es requerido"
+    }
+  },
+  "contact": {
+    "title": "Información de Contacto",
+    "email": "Dirección de Email",
+    "emailPlaceholder": "Ingrese su dirección de email",
+    "returningVisitor": "¿Visitante recurrente? Encontramos su información",
+    "errors": {
+      "emailRequired": "La dirección de email es requerida",
+      "emailInvalid": "Por favor ingrese una dirección de email válida"
+    }
+  },
+  "host": {
+    "title": "¿A quién está visitando?",
+    "selectHost": "Seleccione su anfitrión",
+    "searchPlaceholder": "Buscar miembro del personal...",
+    "noResults": "No se encontraron miembros del personal",
+    "errors": {
+      "hostRequired": "Por favor seleccione un anfitrión"
+    }
+  },
+  "photo": {
+    "title": "Foto del Visitante",
+    "subtitle": "Necesitamos tomar su foto por razones de seguridad",
+    "consentTitle": "Consentimiento de Datos Biométricos",
+    "consentText": "Al continuar, usted consiente la recolección de sus datos biométricos (fotografía) para propósitos de seguridad e identificación durante su visita a SQLA Studio.",
+    "agree": "Acepto",
+    "disagree": "No Acepto",
+    "takePhoto": "Tomar Foto",
+    "retakePhoto": "Tomar Foto Nuevamente",
+    "usePhoto": "Usar Esta Foto"
+  },
+  "nda": {
+    "title": "Acuerdo de No Divulgación",
+    "subtitle": "Por favor revise y firme el NDA",
+    "scrollToSign": "Por favor desplácese hasta el final para firmar",
+    "signHere": "Por favor firme aquí",
+    "clearSignature": "Limpiar",
+    "errors": {
+      "signatureRequired": "La firma es requerida"
+    }
+  },
+  "completion": {
+    "title": "¡Registro Completado!",
+    "subtitle": "Gracias por registrarse en SQLA Studio",
+    "message": "Su anfitrión ha sido notificado de su llegada. Recibirá un email de bienvenida con información importante sobre su visita.",
+    "newVisitor": "Registrar Nuevo Visitante"
+  },
+  "errors": {
+    "generic": "Algo salió mal. Por favor intente nuevamente.",
+    "network": "Error de red. Por favor verifique su conexión.",
+    "camera": "Acceso a la cámara denegado. Por favor habilite los permisos de cámara.",
+    "fileUpload": "Error al subir archivo. Por favor intente nuevamente.",
+    "emailSend": "Error al enviar notificación por email.",
+    "dataSync": "Error al sincronizar datos. Por favor intente nuevamente."
+  }
+}

@@ -1,25 +1,28 @@
+'use client';
+
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from '@/components/ui/language-switcher';
+import Link from 'next/link';
+
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
-      <div className="text-center max-w-md w-full">
-        <h1 className="text-4xl font-bold mb-4">
-          SQLA Visitor Management
-        </h1>
-        <p className="text-xl mb-8 text-gray-300">
-          Welcome to Squeak E. Clean Studios
-        </p>
-        <div className="space-y-4">
-          <button className="w-full bg-white text-black py-4 px-8 rounded-lg text-xl font-semibold hover:bg-gray-200 transition-colors">
-            Start Registration
-          </button>
-          <div className="flex gap-4">
-            <button className="flex-1 border border-white py-3 px-6 rounded-lg text-lg hover:bg-white hover:text-black transition-colors">
-              English
-            </button>
-            <button className="flex-1 border border-white py-3 px-6 rounded-lg text-lg hover:bg-white hover:text-black transition-colors">
-              Español
-            </button>
-          </div>
+    <div className="min-h-screen bg-black text-white relative">
+      <div className="absolute top-6 right-6">
+        <LanguageSwitcher />
+      </div>
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="text-center max-w-md w-full">
+          <h1 className="text-4xl font-bold mb-8">
+            {t('welcome.title')}
+          </h1>
+          <Link
+            href="/registration/personal"
+            className="w-full bg-white text-black py-4 px-8 rounded-lg text-xl font-semibold hover:bg-gray-200 transition-colors inline-block text-center"
+          >
+            {t('welcome.startRegistration')}
+          </Link>
         </div>
       </div>
     </div>
