@@ -86,13 +86,13 @@
 - [x] Add form navigation (Next/Previous buttons)
 - [x] Implement form data storage between steps
 
-### Day 8: Email and Host Selection
-- [ ] Build EmailForm with validation
-- [ ] Implement returning visitor email suggestion
-- [ ] Create Monday.com query for existing visitors
-- [ ] Build HostSelectionForm with searchable dropdown
-- [ ] Implement real-time staff directory filtering with server-side caching
-- [ ] Add conditional logic for email auto-complete
+### Day 8: Email and Host Selection ✅
+- [x] Build EmailForm with validation
+- [x] Implement returning visitor email suggestion
+- [x] Create Monday.com query for existing visitors
+- [x] Build HostSelectionForm with searchable dropdown
+- [x] Implement real-time staff directory filtering with server-side caching
+- [x] Add conditional logic for email auto-complete
 
 ### Day 9: Monday.com CRUD Operations
 - [ ] Implement visitor record creation

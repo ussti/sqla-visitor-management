@@ -74,7 +74,7 @@ export class MockMondayService {
     };
   }
 
-  async findVisitorByEmail(email: string): Promise<{ id: string; name: string; email: string } | null> {
+  async findVisitorByEmail(email: string): Promise<{ id: string; name: string; email: string; firstName?: string; lastName?: string; companyName?: string; position?: string } | null> {
     await new Promise(resolve => setTimeout(resolve, 300));
 
     const visitor = this.visitors.find(v => v.email.toLowerCase() === email.toLowerCase());
@@ -83,7 +83,11 @@ export class MockMondayService {
       return {
         id: visitor.id!,
         name: `${visitor.name} ${visitor.surname}`,
-        email: visitor.email
+        email: visitor.email,
+        firstName: visitor.name,
+        lastName: visitor.surname,
+        companyName: visitor.organization,
+        position: undefined
       };
     }
 

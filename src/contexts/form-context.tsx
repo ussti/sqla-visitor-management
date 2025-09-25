@@ -167,9 +167,9 @@ export function FormProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'SET_ERROR', field, error });
   };
 
-  const clearError = (field: string) => {
+  const clearError = React.useCallback((field: string) => {
     dispatch({ type: 'CLEAR_ERROR', field });
-  };
+  }, []);
 
   const clearAllErrors = () => {
     dispatch({ type: 'CLEAR_ALL_ERRORS' });

@@ -9,7 +9,7 @@ export interface MondayService {
   getStaffDirectory(): Promise<StaffMember[]>;
   findStaffMember(id: string): Promise<StaffMember | null>;
   createVisitor(visitorData: Omit<Visitor, 'id' | 'createdAt'>): Promise<{ id: string; name: string }>;
-  findVisitorByEmail(email: string): Promise<{ id: string; name: string; email: string } | null>;
+  findVisitorByEmail(email: string): Promise<{ id: string; name: string; email: string; firstName?: string; lastName?: string; companyName?: string; position?: string } | null>;
   updateVisitorStatus(itemId: string, status: 'Registered' | 'Checked In'): Promise<void>;
   uploadVisitorPhoto(itemId: string, photoFile: File): Promise<void>;
   uploadVisitorNDA(itemId: string, ndaFile: File): Promise<void>;
