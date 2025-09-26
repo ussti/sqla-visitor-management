@@ -19,7 +19,7 @@ const SignaturePad = dynamic(() => import('@/components/signature/signature-pad'
 export default function NDAPage() {
   const { t } = useTranslation();
   const router = useRouter();
-  const { state, updateMultipleFields, completeStep, resetForm } = useForm();
+  const { state, updateMultipleFields, completeStep } = useForm();
 
   const [hasScrolledToBottom, setHasScrolledToBottom] = React.useState(false);
   const [signature, setSignature] = React.useState<string | null>(null);
@@ -87,11 +87,8 @@ export default function NDAPage() {
         // Continue to redirect even if pipeline fails
       }
 
-      // Reset form and redirect to home
-      setTimeout(() => {
-        resetForm();
-        router.push('/');
-      }, 1000); // Brief delay to show completion
+      // Redirect to completion page
+      router.push('/registration/complete');
 
     } catch (error) {
       console.error('Error processing signature:', error);
