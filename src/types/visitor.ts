@@ -10,8 +10,15 @@ export interface Visitor {
   ndaSignedAt?: Date;
   ndaPdfUrl?: string;
   visitDate: Date;
-  status: 'Registered' | 'Checked In';
+  status: 'Registered' | 'Checked In' | string;
   createdAt: Date;
+  lastUpdated?: Date;
+  notifications?: Array<{
+    type: 'email' | 'chat';
+    status: 'sent' | 'failed';
+    messageId?: string;
+    timestamp: Date;
+  }>;
 }
 
 export interface VisitorFormData {

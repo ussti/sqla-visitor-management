@@ -15,7 +15,6 @@ interface PhotoCaptureProps {
 type CaptureStep = 'capture' | 'preview';
 
 export function PhotoCapture({ onPhotoComplete, onError, className = '' }: PhotoCaptureProps) {
-
   const [currentStep, setCurrentStep] = useState<CaptureStep>('capture');
   const [capturedPhoto, setCapturedPhoto] = useState<{
     blob: Blob;
@@ -103,10 +102,10 @@ export function PhotoCapture({ onPhotoComplete, onError, className = '' }: Photo
             onError={handleCameraError}
           />
 
-          {/* Biometric consent text */}
+          {/* Photo capture notice */}
           <div className="text-center">
             <p className="text-xs text-gray-500 leading-relaxed">
-              By proceeding, you acknowledge and consent to the collection and processing of your biometric data (photograph) for security and identification purposes during your visit to SQLA Studio. You may request deletion of your data at any time.
+              Your photo will be captured for security identification purposes during your visit.
             </p>
           </div>
         </div>

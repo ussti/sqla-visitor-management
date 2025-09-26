@@ -8,11 +8,12 @@ import { FormContainer } from '@/components/forms/form-container';
 import { NDAPreview } from '@/components/nda/nda-preview';
 import { SignaturePad } from '@/components/signature/signature-pad';
 import { NDATemplateData } from '@/lib/nda-template';
+import { NotificationPipelineService } from '@/services/notification-pipeline.service';
 
 export default function NDAPage() {
   const { t } = useTranslation();
   const router = useRouter();
-  const { state, updateMultipleFields, completeStep } = useForm();
+  const { state, updateMultipleFields, completeStep, resetForm } = useForm();
 
   const [hasScrolledToBottom, setHasScrolledToBottom] = React.useState(false);
   const [signature, setSignature] = React.useState<string | null>(null);
@@ -35,11 +36,13 @@ export default function NDAPage() {
     setHasScrolledToBottom(true);
   };
 
-  const handleSignatureChange = (signatureData: string | null) => {
+  const handleSignatureChange = (signatureData: string | null, signatureBlob?: Blob, signatureUrl?: string) => {
     setSignature(signatureData);
     setSignatureError('');
     updateMultipleFields({
       signature: signatureData || undefined,
+      signatureBlob: signatureBlob,
+      signatureUrl: signatureUrl,
       ndaAccepted: !!signatureData
     });
   };
@@ -68,7 +71,22 @@ export default function NDAPage() {
       });
 
       completeStep(5); // NDA step
-      router.push('/registration/complete');
+
+      // Process registration immediately in background
+      try {
+        const pipelineService = new NotificationPipelineService();
+        pipelineService.processVisitorRegistration(state as any);
+      } catch (pipelineError) {
+        console.error('Pipeline processing failed:', pipelineError);
+        // Continue to redirect even if pipeline fails
+      }
+
+      // Reset form and redirect to home
+      setTimeout(() => {
+        resetForm();
+        router.push('/');
+      }, 1000); // Brief delay to show completion
+
     } catch (error) {
       console.error('Error processing signature:', error);
       setSignatureError(t('common.error'));
@@ -125,6 +143,7 @@ export default function NDAPage() {
             </div>
           </div>
         )}
+
       </div>
     </FormContainer>
   );

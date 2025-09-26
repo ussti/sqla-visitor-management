@@ -5,7 +5,7 @@ import SignatureCanvas from 'react-signature-canvas';
 import { useTranslation } from 'react-i18next';
 
 interface SignaturePadProps {
-  onSignature: (signature: string | null) => void;
+  onSignature: (signature: string | null, blob?: Blob, url?: string) => void;
   required?: boolean;
   error?: string;
   className?: string;
@@ -37,7 +37,16 @@ export function SignaturePad({
         onSignatureRef.current(null);
       } else {
         const signature = sigPadRef.current.toDataURL('image/png');
-        onSignatureRef.current(signature);
+
+        // Convert to blob and create object URL
+        sigPadRef.current.getCanvas().toBlob((blob) => {
+          if (blob) {
+            const url = URL.createObjectURL(blob);
+            onSignatureRef.current(signature, blob, url);
+          } else {
+            onSignatureRef.current(signature);
+          }
+        }, 'image/png');
       }
     }
   }, []);

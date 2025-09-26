@@ -130,6 +130,64 @@ export class MockMondayService {
     }
   }
 
+  // Enhanced status tracking methods
+  async updateItemStatus(itemId: string, status: string): Promise<void> {
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    const visitor = this.visitors.find(v => v.id === itemId);
+    if (visitor) {
+      visitor.status = status as any;
+      visitor.lastUpdated = new Date();
+      console.log('🟡 Mock: Updated item status:', { itemId, status });
+    }
+  }
+
+  async updateItem(itemId: string, columnValues: Record<string, any>): Promise<void> {
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    const visitor = this.visitors.find(v => v.id === itemId);
+    if (visitor) {
+      Object.assign(visitor, columnValues);
+      visitor.lastUpdated = new Date();
+      console.log('🟡 Mock: Updated item columns:', { itemId, columnValues });
+    }
+  }
+
+  async trackNotificationStatus(itemId: string, notificationType: 'email' | 'chat', status: 'sent' | 'failed', messageId?: string): Promise<void> {
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    const visitor = this.visitors.find(v => v.id === itemId);
+    if (visitor) {
+      if (!visitor.notifications) {
+        visitor.notifications = [];
+      }
+
+      visitor.notifications.push({
+        type: notificationType,
+        status,
+        messageId,
+        timestamp: new Date(),
+      });
+
+      console.log('🟡 Mock: Tracked notification status:', { itemId, notificationType, status, messageId });
+    }
+  }
+
+  async getItemStatus(itemId: string): Promise<{ status: string; notifications: any[]; lastUpdated: string }> {
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    const visitor = this.visitors.find(v => v.id === itemId);
+    if (visitor) {
+      return {
+        status: visitor.status || 'Unknown',
+        notifications: visitor.notifications || [],
+        lastUpdated: visitor.lastUpdated?.toISOString() || new Date().toISOString()
+      };
+    }
+
+    throw new Error(`Visitor with ID ${itemId} not found`);
+  }
+
   // Debug method to see all mock data
   getAllMockData() {
     return {

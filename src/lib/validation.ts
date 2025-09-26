@@ -49,6 +49,8 @@ export const ndaSchema = z.object({
     message: 'NDA acceptance is required'
   }),
   ndaSignedAt: z.string().optional(),
+  pdfBlob: z.instanceof(Blob).optional(),
+  pdfFilename: z.string().optional(),
 });
 
 export const completeRegistrationSchema = personalInfoSchema

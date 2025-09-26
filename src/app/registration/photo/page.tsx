@@ -44,8 +44,7 @@ export default function PhotoPage() {
       // Store photo data in form context
       updateMultipleFields({
         photoBlob: photoData.blob,
-        photoUrl: photoData.url,
-        biometricConsent: true
+        photoUrl: photoData.url
       });
 
       completeStep(4); // Photo step

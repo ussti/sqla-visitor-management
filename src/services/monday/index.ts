@@ -13,6 +13,11 @@ export interface MondayService {
   updateVisitorStatus(itemId: string, status: 'Registered' | 'Checked In'): Promise<void>;
   uploadVisitorPhoto(itemId: string, photoFile: File): Promise<void>;
   uploadVisitorNDA(itemId: string, ndaFile: File): Promise<void>;
+  // Enhanced status tracking methods
+  updateItemStatus(itemId: string, status: string): Promise<void>;
+  updateItem(itemId: string, columnValues: Record<string, any>): Promise<void>;
+  trackNotificationStatus(itemId: string, notificationType: 'email' | 'chat', status: 'sent' | 'failed', messageId?: string): Promise<void>;
+  getItemStatus(itemId: string): Promise<{ status: string; notifications: any[]; lastUpdated: string }>;
 }
 
 class MondayServiceAdapter implements MondayService {
@@ -92,6 +97,39 @@ class MondayServiceAdapter implements MondayService {
       await mockMondayService.uploadVisitorNDA(itemId, ndaFile);
     } else {
       await mondayClient.uploadVisitorNDA(itemId, ndaFile);
+    }
+  }
+
+  // Enhanced status tracking methods
+  async updateItemStatus(itemId: string, status: string): Promise<void> {
+    if (this.useMock) {
+      await mockMondayService.updateItemStatus(itemId, status);
+    } else {
+      await mondayClient.updateItemStatus(itemId, status);
+    }
+  }
+
+  async updateItem(itemId: string, columnValues: Record<string, any>): Promise<void> {
+    if (this.useMock) {
+      await mockMondayService.updateItem(itemId, columnValues);
+    } else {
+      await mondayClient.updateItem(itemId, columnValues);
+    }
+  }
+
+  async trackNotificationStatus(itemId: string, notificationType: 'email' | 'chat', status: 'sent' | 'failed', messageId?: string): Promise<void> {
+    if (this.useMock) {
+      await mockMondayService.trackNotificationStatus(itemId, notificationType, status, messageId);
+    } else {
+      await mondayClient.trackNotificationStatus(itemId, notificationType, status, messageId);
+    }
+  }
+
+  async getItemStatus(itemId: string): Promise<{ status: string; notifications: any[]; lastUpdated: string }> {
+    if (this.useMock) {
+      return await mockMondayService.getItemStatus(itemId);
+    } else {
+      return await mondayClient.getItemStatus(itemId);
     }
   }
 

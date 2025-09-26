@@ -16,7 +16,6 @@ export default function ContactPage() {
   const router = useRouter();
   const { state, updateMultipleFields, completeStep, setError, clearError } = useForm();
   const [isCheckingVisitor, setIsCheckingVisitor] = React.useState(false);
-  const [existingVisitor, setExistingVisitor] = React.useState(null);
 
   const {
     register,
@@ -57,8 +56,7 @@ export default function ContactPage() {
         try {
           const visitor = await mondayService.findVisitorByEmail(watchedFields.email);
           if (visitor) {
-            setExistingVisitor(visitor);
-            // Pre-fill form with existing visitor data
+            // Pre-fill form with existing visitor data without showing notification
             if (visitor.firstName && !state.firstName) {
               setValue('email', watchedFields.email);
               updateMultipleFields({
@@ -68,8 +66,6 @@ export default function ContactPage() {
                 position: visitor.position,
               });
             }
-          } else {
-            setExistingVisitor(null);
           }
         } catch (error) {
           console.error('Error checking existing visitor:', error);
@@ -115,16 +111,6 @@ export default function ContactPage() {
         helperText={isCheckingVisitor ? t('common.loading') : undefined}
       />
 
-      {existingVisitor && (
-        <div className="p-4 bg-green-900/20 border border-green-500 rounded-lg">
-          <p className="text-green-400 text-sm font-medium">
-            {t('contact.returningVisitor')}
-          </p>
-          <p className="text-green-300 text-sm mt-1">
-            {existingVisitor.firstName} {existingVisitor.lastName} - {existingVisitor.companyName}
-          </p>
-        </div>
-      )}
     </FormContainer>
   );
 }
