@@ -101,7 +101,7 @@ export default function NDAPage() {
     }
   };
 
-  const canProceed = hasScrolledToBottom && signature;
+  const canProceed = hasScrolledToBottom && !!signature;
 
   return (
     <FormContainer

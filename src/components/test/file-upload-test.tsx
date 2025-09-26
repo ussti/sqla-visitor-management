@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { useForm } from '@/contexts/form-context';
-import { MondayService } from '@/services/monday.service';
 import { FileUploadService } from '@/services/file-upload.service';
 import type { FileUploadResult } from '@/services/file-upload.service';
 
@@ -21,8 +20,7 @@ export function FileUploadTest() {
     setUploadResult(null);
 
     try {
-      const mondayService = new MondayService();
-      const fileUploadService = new FileUploadService(mondayService);
+      const fileUploadService = new FileUploadService();
 
       const result = await fileUploadService.uploadVisitorFiles(state as any);
       setUploadResult(result);
@@ -35,9 +33,6 @@ export function FileUploadTest() {
           fileUrls.photoUrl = result.uploadedFiles.photo.url;
         }
 
-        if (result.uploadedFiles.pdf?.url) {
-          fileUrls.pdfUrl = result.uploadedFiles.pdf.url;
-        }
 
         if (result.uploadedFiles.signature?.url) {
           fileUrls.signatureUrl = result.uploadedFiles.signature.url;
@@ -105,9 +100,6 @@ export function FileUploadTest() {
               <ul className="text-green-300 text-xs space-y-1">
                 {uploadResult.uploadedFiles.photo && (
                   <li>📷 Photo: {uploadResult.uploadedFiles.photo.name}</li>
-                )}
-                {uploadResult.uploadedFiles.pdf && (
-                  <li>📄 PDF: {uploadResult.uploadedFiles.pdf.name}</li>
                 )}
                 {uploadResult.uploadedFiles.signature && (
                   <li>✍️ Signature: {uploadResult.uploadedFiles.signature.name}</li>

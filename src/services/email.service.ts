@@ -30,7 +30,7 @@ export interface WelcomeEmailData {
 }
 
 export class EmailService {
-  private resend: Resend;
+  private resend!: Resend;
   private fromEmail: string;
   private fromName: string;
   private useMockMode: boolean;
@@ -82,7 +82,7 @@ export class EmailService {
         text: template.text,
         attachments: attachments?.map(attachment => ({
           filename: attachment.filename,
-          content: attachment.content,
+          content: Buffer.isBuffer(attachment.content) ? attachment.content : Buffer.from(attachment.content),
           type: attachment.contentType
         }))
       });

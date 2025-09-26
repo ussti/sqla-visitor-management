@@ -3,6 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { serviceRecovery } from '@/lib/api-recovery';
 
+const getStatusIcon = (status: string) => {
+  switch (status) {
+    case 'healthy': return '🟢';
+    case 'degraded': return '🟡';
+    case 'unhealthy': return '🔴';
+    default: return '⚪';
+  }
+};
+
 interface SystemStatusProps {
   className?: string;
   compact?: boolean;
@@ -51,15 +60,6 @@ export function SystemStatusIndicator({ className = '', compact = false, showDet
       case 'degraded': return 'text-yellow-400';
       case 'unhealthy': return 'text-red-400';
       default: return 'text-gray-400';
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'healthy': return '🟢';
-      case 'degraded': return '🟡';
-      case 'unhealthy': return '🔴';
-      default: return '⚪';
     }
   };
 

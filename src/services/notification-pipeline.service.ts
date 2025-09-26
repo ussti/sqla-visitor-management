@@ -136,7 +136,7 @@ export class NotificationPipelineService {
       // Step 2: Update Monday.com status
       await this.executeStep(steps[1], async () => {
         if (result.mondayRecordId) {
-          return await this.mondayService.updateItem(result.mondayRecordId, {
+          return await this.mondayService.updateItem(result.mondayRecordId.toString(), {
             status: 'Registration Complete',
             processing_status: 'Processing Notifications',
             last_updated: new Date().toISOString()
@@ -214,7 +214,7 @@ export class NotificationPipelineService {
           const completedSteps = result.steps.filter(s => s.status === 'completed').length;
           const failedSteps = result.steps.filter(s => s.status === 'failed').length;
 
-          return await this.mondayService.updateItem(result.mondayRecordId, {
+          return await this.mondayService.updateItem(result.mondayRecordId.toString(), {
             processing_status: `Complete (${completedSteps}/${result.totalSteps} steps successful)`,
             notification_status: failedSteps > 0 ? 'Some Failed' : 'All Sent',
             completed_at: new Date().toISOString()

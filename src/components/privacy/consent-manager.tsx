@@ -30,7 +30,7 @@ export function ConsentManager({
 }: ConsentManagerProps) {
   const { t } = useTranslation();
   const [consents, setConsents] = useState<Partial<ConsentData>>({});
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const consentItems = [
@@ -197,7 +197,7 @@ export function ConsentManager({
                   </p>
 
                   <button
-                    onClick={() => setShowDetails(showDetails === item.key ? false : item.key)}
+                    onClick={() => setShowDetails(showDetails === item.key ? null : item.key)}
                     className="text-blue-400 hover:text-blue-300 text-xs underline"
                   >
                     {showDetails === item.key ? 'Hide' : 'Show'} Details

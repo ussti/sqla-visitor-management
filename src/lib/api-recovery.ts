@@ -40,7 +40,7 @@ export class APIRecoveryService {
     customConfig?: Partial<RetryConfig>
   ): Promise<T> {
     const config = { ...this.retryConfig, ...customConfig };
-    let lastError: Error;
+    let lastError: Error = new Error('Unknown error');
 
     for (let attempt = 0; attempt <= config.maxRetries; attempt++) {
       try {

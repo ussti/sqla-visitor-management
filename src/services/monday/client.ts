@@ -227,6 +227,103 @@ export class MondayClient {
   async uploadVisitorNDA(itemId: string, ndaFile: File): Promise<void> {
     await this.uploadFile(itemId, 'files__1', ndaFile);
   }
+
+  // Enhanced status tracking methods
+  async updateItemStatus(itemId: string, status: string): Promise<void> {
+    const mutation = `
+      mutation change_item_value($item_id: ID!, $board_id: ID!, $column_id: String!, $value: JSON!) {
+        change_column_value(item_id: $item_id, board_id: $board_id, column_id: $column_id, value: $value) {
+          id
+        }
+      }
+    `;
+
+    await this.query(mutation, {
+      item_id: itemId,
+      board_id: this.visitorBoardId,
+      column_id: 'status',
+      value: JSON.stringify({ label: status })
+    });
+  }
+
+  async updateItem(itemId: string, columnValues: Record<string, any>): Promise<void> {
+    for (const [columnId, value] of Object.entries(columnValues)) {
+      const mutation = `
+        mutation change_item_value($item_id: ID!, $board_id: ID!, $column_id: String!, $value: JSON!) {
+          change_column_value(item_id: $item_id, board_id: $board_id, column_id: $column_id, value: $value) {
+            id
+          }
+        }
+      `;
+
+      await this.query(mutation, {
+        item_id: itemId,
+        board_id: this.visitorBoardId,
+        column_id: columnId,
+        value: JSON.stringify(value)
+      });
+    }
+  }
+
+  async trackNotificationStatus(itemId: string, notificationType: 'email' | 'chat', status: 'sent' | 'failed', messageId?: string): Promise<void> {
+    const columnId = notificationType === 'email' ? 'email_notifications' : 'chat_notifications';
+    const value = {
+      status,
+      messageId,
+      timestamp: new Date().toISOString()
+    };
+
+    await this.updateItem(itemId, { [columnId]: value });
+  }
+
+  async getItemStatus(itemId: string): Promise<{ status: string; notifications: any[]; lastUpdated: string }> {
+    const query = `
+      query get_item($item_id: ID!) {
+        items(ids: [$item_id]) {
+          id
+          column_values {
+            id
+            text
+            value
+          }
+          updated_at
+        }
+      }
+    `;
+
+    const response = await this.query(query, { item_id: itemId });
+    const item = response.data.items[0];
+
+    if (!item) {
+      throw new Error(`Item with ID ${itemId} not found`);
+    }
+
+    const statusColumn = item.column_values.find((col: any) => col.id === 'status');
+    const emailColumn = item.column_values.find((col: any) => col.id === 'email_notifications');
+    const chatColumn = item.column_values.find((col: any) => col.id === 'chat_notifications');
+
+    const notifications = [];
+    if (emailColumn?.value) {
+      try {
+        notifications.push({ type: 'email', ...JSON.parse(emailColumn.value) });
+      } catch (e) {
+        // Ignore parse errors
+      }
+    }
+    if (chatColumn?.value) {
+      try {
+        notifications.push({ type: 'chat', ...JSON.parse(chatColumn.value) });
+      } catch (e) {
+        // Ignore parse errors
+      }
+    }
+
+    return {
+      status: statusColumn?.text || 'Unknown',
+      notifications,
+      lastUpdated: item.updated_at
+    };
+  }
 }
 
 export const mondayClient = new MondayClient();

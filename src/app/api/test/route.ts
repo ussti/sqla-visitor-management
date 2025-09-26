@@ -34,21 +34,27 @@ export async function POST(request: Request) {
     const body = await request.json();
 
     if (body.action === 'addSampleVisitor') {
-      // Add sample visitor for testing
-      mondayService.getRawClient().addSampleVisitor?.();
+      // Add sample visitor for testing (mock only)
+      const rawClient = mondayService.getRawClient();
+      if ('addSampleVisitor' in rawClient && typeof rawClient.addSampleVisitor === 'function') {
+        (rawClient as any).addSampleVisitor();
+      }
       return NextResponse.json({
         success: true,
-        message: 'Sample visitor added',
+        message: 'Sample visitor added (mock only)',
         timestamp: new Date().toISOString()
       });
     }
 
     if (body.action === 'resetData') {
-      // Reset mock data
-      mondayService.getRawClient().resetMockData?.();
+      // Reset mock data (mock only)
+      const rawClient = mondayService.getRawClient();
+      if ('resetMockData' in rawClient && typeof rawClient.resetMockData === 'function') {
+        (rawClient as any).resetMockData();
+      }
       return NextResponse.json({
         success: true,
-        message: 'Mock data reset',
+        message: 'Mock data reset (mock only)',
         timestamp: new Date().toISOString()
       });
     }
