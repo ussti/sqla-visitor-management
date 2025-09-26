@@ -3,9 +3,15 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { useForm } from '@/contexts/form-context';
 import { FormContainer } from '@/components/forms/form-container';
-import { PhotoCapture } from '@/components/photo/photo-capture';
+
+// Lazy load PhotoCapture component
+const PhotoCapture = dynamic(() => import('@/components/photo/photo-capture').then(mod => ({ default: mod.PhotoCapture })), {
+  loading: () => <div className="flex justify-center items-center p-8"><div className="text-white">Loading camera...</div></div>,
+  ssr: false
+});
 
 export default function PhotoPage() {
   const { t } = useTranslation();

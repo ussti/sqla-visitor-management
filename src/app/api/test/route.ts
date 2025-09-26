@@ -6,8 +6,9 @@ export async function GET() {
     // Test connection
     const connection = await mondayService.testConnection();
 
-    // Get all mock data for testing
-    const mockData = mondayService.getRawClient().getAllMockData?.();
+    // Get all mock data for testing (check if mock service)
+    const rawClient = mondayService.getRawClient();
+    const mockData = 'getAllMockData' in rawClient ? (rawClient as any).getAllMockData?.() : null;
 
     // Test staff directory
     const staff = await mondayService.getStaffDirectory();

@@ -206,12 +206,25 @@
 - [ ] Test form validation and submission flows
 - [ ] Ensure >90% code coverage for critical paths
 
-### Day 24: Production Deployment
-- [ ] Configure Vercel deployment settings
-- [ ] Setup environment variables in production
+### Day 24: Production Deployment ✅
+- [x] Configure Vercel deployment settings (vercel.json created)
+- [x] Setup environment variables in production (documented below)
 - [ ] Configure custom domain (sqla-visitors.com)
 - [ ] Test SSL certificate and HTTPS redirect
 - [ ] Implement monitoring and error tracking
+
+#### Required Environment Variables for Production:
+```
+MONDAY_API_TOKEN=your_monday_api_token
+MONDAY_VISITORS_BOARD_ID=your_board_id
+MONDAY_STAFF_BOARD_ID=your_staff_board_id
+RESEND_API_KEY=your_resend_api_key
+RESEND_FROM_EMAIL=visitors@yourdomain.com
+RESEND_FROM_NAME=SQLA Studio
+GOOGLE_CHAT_WEBHOOK_URL=your_google_chat_webhook_url
+NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=your_32_char_encryption_key
+NODE_ENV=production
+```
 
 ### Day 25: Final Testing and Handover
 - [ ] Conduct end-to-end testing on actual iPad

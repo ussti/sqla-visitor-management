@@ -14,8 +14,8 @@ export async function GET(request: NextRequest) {
     } else if (realIp) {
       ip = realIp.trim();
     } else {
-      // Fallback to connection IP
-      ip = request.ip || 'unknown';
+      // Fallback - no direct IP access in NextRequest
+      ip = 'unknown';
     }
 
     return NextResponse.json({

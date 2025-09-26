@@ -3,12 +3,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { useForm } from '@/contexts/form-context';
 import { FormContainer } from '@/components/forms/form-container';
 import { NDAPreview } from '@/components/nda/nda-preview';
-import { SignaturePad } from '@/components/signature/signature-pad';
 import { NDATemplateData } from '@/lib/nda-template';
 import { NotificationPipelineService } from '@/services/notification-pipeline.service';
+
+// Lazy load SignaturePad component
+const SignaturePad = dynamic(() => import('@/components/signature/signature-pad').then(mod => ({ default: mod.SignaturePad })), {
+  loading: () => <div className="flex justify-center items-center p-4"><div className="text-white">Loading signature pad...</div></div>,
+  ssr: false
+});
 
 export default function NDAPage() {
   const { t } = useTranslation();

@@ -2,6 +2,7 @@ import { mondayClient } from './client';
 import { mockMondayService } from './mock';
 import { Visitor } from '@/types/visitor';
 import { StaffMember } from '@/types/staff';
+import { withCache } from '@/lib/api-cache';
 
 // Service interface
 export interface MondayService {
@@ -45,11 +46,17 @@ class MondayServiceAdapter implements MondayService {
   }
 
   async getStaffDirectory(): Promise<StaffMember[]> {
-    if (this.useMock) {
-      return await mockMondayService.getStaffDirectory();
-    } else {
-      return await mondayClient.getStaffDirectory();
-    }
+    return withCache(
+      'staff-directory',
+      async () => {
+        if (this.useMock) {
+          return await mockMondayService.getStaffDirectory();
+        } else {
+          return await mondayClient.getStaffDirectory();
+        }
+      },
+      15 // Cache for 15 minutes
+    );
   }
 
   async findStaffMember(id: string): Promise<StaffMember | null> {
@@ -68,12 +75,18 @@ class MondayServiceAdapter implements MondayService {
     }
   }
 
-  async findVisitorByEmail(email: string): Promise<{ id: string; name: string; email: string } | null> {
-    if (this.useMock) {
-      return await mockMondayService.findVisitorByEmail(email);
-    } else {
-      return await mondayClient.findVisitorByEmail(email);
-    }
+  async findVisitorByEmail(email: string): Promise<{ id: string; name: string; email: string; firstName?: string; lastName?: string; companyName?: string; position?: string } | null> {
+    return withCache(
+      `visitor-email-${email.toLowerCase()}`,
+      async () => {
+        if (this.useMock) {
+          return await mockMondayService.findVisitorByEmail(email);
+        } else {
+          return await mondayClient.findVisitorByEmail(email);
+        }
+      },
+      5 // Cache for 5 minutes - shorter for visitor data
+    );
   }
 
   async updateVisitorStatus(itemId: string, status: 'Registered' | 'Checked In'): Promise<void> {
